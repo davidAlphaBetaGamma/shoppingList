@@ -1,6 +1,7 @@
 package de.einkaufsliste.controller;
 
 import de.einkaufsliste.model.ListEntry;
+import de.einkaufsliste.repository.ListEntryRepository;
 import de.einkaufsliste.service.ListService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class ListController {
     @Autowired
     private ListService listService;
 
+    @Autowired
+    private ListEntryRepository repo;
+
 
     @GetMapping(value = "/items", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Iterable<ListEntry>> findAll() {
@@ -27,6 +31,11 @@ public class ListController {
         return ResponseEntity.ok(listService.getAllItems());
     }
 
+    @PostMapping(value = "/item", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ListEntry> addItem(@RequestBody ListEntry item) {
+        log.info("controller method addItem() is called.");
+        return ResponseEntity.ok(repo.save(item));
+    }
 
 //    @PostMapping(value = "/list", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 //    public ResponseEntity<ShoppingList> createShoppingList(@RequestBody ShoppingList newList) {

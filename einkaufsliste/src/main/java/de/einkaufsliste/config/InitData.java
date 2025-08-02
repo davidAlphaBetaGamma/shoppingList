@@ -1,3 +1,4 @@
+/*
 package de.einkaufsliste.config;
 
 import de.einkaufsliste.model.ListEntry;
@@ -70,3 +71,4 @@ public class InitData {
 
 
 }
+*/
