@@ -1,5 +1,6 @@
 package de.einkaufsliste.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,9 +23,12 @@ public class ListEntry {
     private int quantity;
 
     @Column
-    private boolean completed = false;
+    private boolean completed;
 
-//    @ManyToOne
-//    @JoinColumn(name = "list_id")
-//    private ShoppingList shoppingList;
+    @ManyToOne(cascade=CascadeType.PERSIST)
+    @JoinColumn(name = "list_id")
+    @JsonBackReference
+    private ShoppingList shoppingList;
+
+
 }
